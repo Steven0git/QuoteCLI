@@ -24,7 +24,7 @@ elif ((difference <= 20)); then
     msg="Beware! Time is coming..."
 else
     color=$COLOR_GREEN
-    msg="Remember..... It's better growing 1% per day than do nothing!"
+    msg="Growing 1% per-day than do nothing!"
 fi
 
 # Print the result with color
