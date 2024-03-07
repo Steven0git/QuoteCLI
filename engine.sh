@@ -9,7 +9,7 @@ export COLOR_BLUE="\e[34m"
 cal
 
 # Get the current day of the month
-current_day=$(date +%d)
+ current_day=$(date +%e)
 # Get the last day of the month
 last_day=$(date -d "$(date +'%Y-%m-01') +1 month -1 day" +%d)
 # Calculate the difference
@@ -40,7 +40,7 @@ quotes_file="${get_dir}/quote.txt"
 # Check if the file exists
 if [ -f "$quotes_file" ]; then
     num_quotes=$(wc -l < "$quotes_file")
-    rand_index=$((RANDOM % num_quotes))
+    rand_index=$((1 + RANDOM % num_quotes))
     random_quote=$(sed -n "${rand_index}p" "$quotes_file")
     # Array of color codes
     COLOR_RANDOM=("$COLOR_GREEN" "$COLOR_RED" "$COLOR_YELLOW" "$COLOR_BLUE")
