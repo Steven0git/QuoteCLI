@@ -14,18 +14,26 @@ cal
 last_day=$(date -d "$(date +'%Y-%m-01') +1 month -1 day" +%d)
 # Calculate the difference
 difference=$((last_day - current_day))
-
 #current seconds
 seconds=$(date +%S)
+
+
+#Calcuale Actual Path of engine.sh
+the_path=$(realpath "$0")
+get_dir=$(dirname "${the_path}")
+#get quote path
 
 # Select color based on days difference 
 if ((difference <= 10)); then
     color=$COLOR_RED  
+    quotes_file="${get_dir}/date_pressure/low.txt"
     msg="Hurry up! You have no time!"
 elif ((difference <= 20)); then
+    quotes_file="${get_dir}/date_pressure/medium.txt"
     color=$COLOR_YELLOW   
     msg="Beware! Time is coming..."
 else
+    quotes_file="${get_dir}/date_pressure/high.txt"
     color=$COLOR_GREEN
     msg="Progressing by 1% each day is preferable to standing still."
 fi
@@ -33,12 +41,6 @@ fi
 # Print the result with color
 echo -e "\tYou have \e[0m${color}${difference}\e[0m days left!"
 echo -e "\t\e[0m${color}${msg}\e[0m"
-
-#Calcuale Actual Path of engine.sh
-the_path=$(realpath "$0")
-get_dir=$(dirname "${the_path}")
-#get quote path
-quotes_file="${get_dir}/quote.txt"
 
 # Check if the file exists
 if [ -f "$quotes_file" ]; then
