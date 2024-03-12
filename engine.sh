@@ -15,6 +15,9 @@ last_day=$(date -d "$(date +'%Y-%m-01') +1 month -1 day" +%d)
 # Calculate the difference
 difference=$((last_day - current_day))
 
+#current seconds
+seconds=$(date +%S)
+
 # Select color based on days difference 
 if ((difference <= 10)); then
     color=$COLOR_RED  
@@ -40,7 +43,7 @@ quotes_file="${get_dir}/quote.txt"
 # Check if the file exists
 if [ -f "$quotes_file" ]; then
     num_quotes=$(wc -l < "$quotes_file")
-    rand_index=$((1 + RANDOM % num_quotes))
+    rand_index=$((1 + (seconds * RANDOM % num_quotes)))
     random_quote=$(sed -n "${rand_index}p" "$quotes_file")
     # Array of color codes
     COLOR_RANDOM=("$COLOR_GREEN" "$COLOR_RED" "$COLOR_YELLOW" "$COLOR_BLUE")
