@@ -40,7 +40,7 @@ is_number() {
 main() {
     local current_day=$(get_current_day)
     local last_day=$(get_last_day)
-    local difference=$(calculate_difference "$current_day" "$last_day")
+    local difference=$((10#$(get_last_day) - $(get_current_day)))
     local seconds=$(date +%S)
     local get_dir=$(dirname "$(realpath "$0")")
     local mood_path="${get_dir}/date_pressure/"
@@ -48,16 +48,16 @@ main() {
     # Select color based on days difference
     if ((difference <= 10)); then
         color="$COLOR_RED"
-        quotes_file="${get_dir}/date_pressure/low.txt"
-        mood_msg="${mood_path}mood.low.txt"
+        quotes_file="${get_dir}/date_pressure/high.txt"
+        mood_msg="${mood_path}mood.high.txt"
     elif ((difference <= 20)); then
         quotes_file="${get_dir}/date_pressure/medium.txt"
         color="$COLOR_YELLOW"
         mood_msg="${mood_path}mood.medium.txt"
     else
-        quotes_file="${get_dir}/date_pressure/high.txt"
+        quotes_file="${get_dir}/date_pressure/low.txt"
         color="$COLOR_GREEN"
-        mood_msg="${mood_path}mood.high.txt"
+        mood_msg="${mood_path}mood.low.txt"
     fi
 
     # Print the result with color
